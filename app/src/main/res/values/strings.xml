@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MoviesAPIChallenge</string>
-    <string name="title_home">Para você</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_app_bar_home">Para você</string>
+    <string name="title_bottom_bar_home">Início</string>
+    <string name="title_dashboard">Novidades</string>
+    <string name="title_notifications">Minha Lista</string>
 </resources>

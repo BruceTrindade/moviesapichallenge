@@ -1,4 +1,4 @@
-package com.example.moviesapichallenge.ui.dashboard
+package com.example.moviesapichallenge.ui.upcomming
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.moviesapichallenge.databinding.FragmentDashboardBinding
+import com.example.moviesapichallenge.databinding.FragmentUpcomingBinding
 
-class DashboardFragment : Fragment() {
+class UpCommingFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
+    private var _binding: FragmentUpcomingBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -23,9 +21,9 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
+            ViewModelProvider(this).get(UpCommingViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentUpcomingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textDashboard

@@ -59,15 +59,8 @@ class HomeFragment : Fragment() {
         }
 
         lifecycleScope.launch {
-            homeViewModel.getPopularMoviesPagingData.collectLatest { pagingData ->
-                val movieSection = listOf(
-                    MovieSection(
-                        title = "Popular",
-                        pagingData = pagingData,
-                        sectionType = SectionType.POPULAR
-                    ),
-                )
-                sectionAdapter.submitList(movieSection)
+            homeViewModel.movieSectionsState.collectLatest { movieSections ->
+                sectionAdapter.submitList(movieSections)
             }
         }
 

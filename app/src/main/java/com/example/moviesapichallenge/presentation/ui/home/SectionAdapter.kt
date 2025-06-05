@@ -56,13 +56,26 @@ class SectionAdapter(
             binding.apply {
                 sectionTitle.text = section.title
 
-                val movieAdapter = MoviesAdapter(onClick, imageSetting)
-                section.pagingData?.let {
-                    movieAdapter.submitData(lifecycleOwner.lifecycle, it)
+                val moviesAdapter = when (section.sectionType) {
+                    SectionType.TRENDING -> {
+                        val trendingAdapter = TrendingMoviesAdapter(onClick, imageSetting)
+                        section.movies.let {
+                            trendingAdapter.submitList(it)
+                        }
+                        trendingAdapter
+                    }
+
+                    SectionType.POPULAR, SectionType.NOW_PLAYING -> {
+                        section.pagingData?.let {
+                            val movieAdapter = MoviesAdapter(onClick, imageSetting)
+                            movieAdapter.submitData(lifecycleOwner.lifecycle, it)
+                            movieAdapter
+                        }
+                    }
                 }
 
                 recyclerViewMovies.apply {
-                    adapter = movieAdapter
+                    adapter = moviesAdapter
                     layoutManager = LinearLayoutManager(
                         context,
                         LinearLayoutManager.HORIZONTAL,

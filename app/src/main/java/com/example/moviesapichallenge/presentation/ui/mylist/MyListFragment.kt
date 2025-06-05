@@ -1,4 +1,4 @@
-package com.example.moviesapichallenge.ui.mylist
+package com.example.moviesapichallenge.presentation.ui.mylist
 
 import android.os.Bundle
 import android.view.LayoutInflater

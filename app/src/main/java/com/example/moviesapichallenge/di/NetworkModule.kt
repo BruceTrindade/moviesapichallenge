@@ -2,6 +2,7 @@ package com.example.moviesapichallenge.di
 
 import com.example.moviesapichallenge.data.remote.api.TMDbApiService
 import com.example.moviesapichallenge.BuildConfig
+import com.example.moviesapichallenge.utils.ImageSetting
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,6 +17,15 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+
+    @Provides
+    @Singleton
+    fun provideImageSettings(): ImageSetting {
+        return ImageSetting(
+            posterBaseUrl = BuildConfig.TMDB_IMAGE_BASE_URL,
+            backdropBaseUrl = BuildConfig.TMDB_IMAGE_DROP_BASE_URL
+        )
+    }
 
     @Provides
     @Singleton

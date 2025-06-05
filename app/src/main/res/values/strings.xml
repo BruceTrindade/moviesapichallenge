@@ -4,4 +4,11 @@
     <string name="title_bottom_bar_home">Início</string>
     <string name="title_dashboard">Novidades</string>
     <string name="title_notifications">Minha Lista</string>
+
+    <!-- Content descriptions -->
+    <string name="movie_poster">Movie poster</string>
+    <string name="movie_backdrop">Movie backdrop</string>
+    <string name="back">Back</string>
+    <string name="rating">Rating</string>
+
 </resources>

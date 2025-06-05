@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
+    id("kotlin-parcelize")
     id("dagger.hilt.android.plugin")
 }
 
@@ -31,6 +32,7 @@ android {
 
         buildConfigField("String", "TMDB_BASE_URL", "\"https://api.themoviedb.org/3/\"")
         buildConfigField("String", "TMDB_IMAGE_BASE_URL", "\"https://image.tmdb.org/t/p/w500\"")
+        buildConfigField("String", "TMDB_IMAGE_DROP_BASE_URL", "\"https ://image.tmdb.org/t/p/w780\"")
         buildConfigField("String", "TMDB_API_KEY", "\"$tmdbApiKey\"")
     }
 
@@ -58,6 +60,15 @@ android {
 
 dependencies {
 
+    implementation(libs.kotlinx.coroutines.android)
+
+    // Image Loading
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
+
+    // Paging
+    implementation(libs.androidx.paging.runtime.ktx)
+
     // Networking
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
@@ -66,7 +77,6 @@ dependencies {
     // Dependency Injection
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
-
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

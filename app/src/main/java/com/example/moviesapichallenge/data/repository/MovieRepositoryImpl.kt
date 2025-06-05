@@ -3,6 +3,9 @@ package com.example.moviesapichallenge.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.example.moviesapichallenge.data.local.MovieDao
+import com.example.moviesapichallenge.data.local.toMovie
+import com.example.moviesapichallenge.data.local.toMovieLocal
 import com.example.moviesapichallenge.data.paging.PlayingNowMoviesPagingSource
 import com.example.moviesapichallenge.data.paging.PopularMoviesPagingSource
 import com.example.moviesapichallenge.data.remote.api.TMDbApiService
@@ -11,12 +14,14 @@ import com.example.moviesapichallenge.domain.model.Movie
 import com.example.moviesapichallenge.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class MovieRepositoryImpl @Inject constructor(
     private val apiService: TMDbApiService,
+    private val localMovieDao: MovieDao,
     private val apiKey: String,
 ): MovieRepository {
 
@@ -65,6 +70,32 @@ class MovieRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             emit(emptyList())
         }
+    }
+
+    override fun getLocalMovies(): Flow<List<Movie>> {
+        return localMovieDao.getAllFavoriteMovies().map { myListMovies ->
+            myListMovies.map { it.toMovie() }
+        }
+    }
+
+    override suspend fun addToMyList(movie: Movie) {
+        localMovieDao.insertFavoriteMovie((movie.toMovieLocal()))
+    }
+
+    override suspend fun removeFromMyList(movieId: Int) {
+        localMovieDao.deleteFavoriteMovieById(movieId)
+    }
+
+    override suspend fun isLocal(movieId: Int): Boolean {
+        return localMovieDao.isFavorite(movieId)
+    }
+
+    override fun isLocalFlow(movieId: Int): Flow<Boolean> {
+        return localMovieDao.isFavoriteFlow(movieId)
+    }
+
+    override fun getMyListCount(): Flow<Int> {
+        return localMovieDao.getFavoriteMoviesCountFlow()
     }
 
 
